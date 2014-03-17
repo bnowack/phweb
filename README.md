@@ -1,7 +1,7 @@
 phweb
 =====
 
-A light-weight web-framework for PHP
+A light-weight web framework for PHP
 
 ### Components
 
