@@ -19,7 +19,7 @@ class Response {
     }
     
     protected function buildDefaultTemplateVars() {
-        // base
+        // request
         $this->setTemplateVar('host', $this->app->request->host);
         $this->setTemplateVar('base', $this->app->request->base);
         $this->setTemplateVar('clean-path', $this->app->request->cleanPath);
@@ -36,9 +36,10 @@ class Response {
         }
         // statusCode
         $this->setTemplateVar('statusCode', $this->statusCode);
-        // title (404)
+        // title
+        $this->setTemplateVar('page-title-glue', ' - ');
         $this->setTemplateVar('page-title', 'Seite nicht gefunden');
-        // content (404)
+        // content
         $this->setTemplateVar('content', '{/404.html.tpl}');
     }
     
