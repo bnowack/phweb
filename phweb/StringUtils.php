@@ -1,6 +1,6 @@
 <?php
 
-namespace web;
+namespace phweb;
 
 class StringUtils {
     
@@ -83,7 +83,7 @@ class StringUtils {
 		}
 		// utf-8 tweaks
 		$re = '/([\x00-\xdf][\x80-\xbf]|[\xe0-\xef][\x80-\xbf]{2}|[\xf0-\xf7][\x80-\xbf]{3}|[\xf8-\xfb][\x80-\xbf]{4}|[\xfc-\xfd][\x80-\xbf]{5}|[^\x00-\x7f])/';
-		return preg_replace_callback($re, array("\web\StringUtils", "toUtf8Callback"), $value);
+		return preg_replace_callback($re, array("self", "toUtf8Callback"), $value);
 	}
     
     static public function toUtf8Callback($match) {
