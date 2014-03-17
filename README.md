@@ -51,6 +51,7 @@ A light-weight web framework for PHP
     $app = new \phweb\Application($config);
     $app->run();
 
+
 ### Sample composer.json
 
     {
@@ -58,3 +59,37 @@ A light-weight web framework for PHP
             "phpmailer/phpmailer": ">5.2.0"
         }
     }
+
+
+### Sample config/application.ini
+
+[meta]
+site-title = My Title
+
+[smtp]
+host = smtp.my.host
+port = 587
+user = my
+password = pass
+from-address = noreply@my.host
+from-name = "My Mailer"
+to-address = info@my.host
+to-name = "My Name"
+plain-template = "email.tpl"
+html-template = "email.html.tpl"
+;debug = true
+
+[routes]
+any["/"] = "\my-namespace\HomePageHandler"
+any["/contact"] = "\my-namespace\ContactPageHandler"
+post["/items"] = "\my-namespace\ItemHandler"
+
+
+### Template syntax
+
+    <h1>Welcome to {meta/site-title}</h1>
+
+    <!-- sub-template -->
+
+    {/my-sub-template.html.tpl}
+
