@@ -23,6 +23,7 @@ class Request {
         $this->extension = preg_replace('/^.*\.?(.*)$/', '\\1', $this->cleanPath);
         $this->pathParts = explode('/', $this->cleanPath);
         $this->method = $this->arg('REQUEST_METHOD', 'server');
+        $this->siteUrl = "http://{$this->host}{$this->base}";
     }
     
     protected function buildArguments() {

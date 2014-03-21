@@ -46,7 +46,7 @@ class Email {
 		if (empty($msg['html-template'])) {
             $msg['html-template'] = $this->app->config('smtp/html-template');
         }
-        $msg['website-url'] = "http://{$this->app->request->host}{$this->app->request->base}";
+        $msg['website-url'] = $this->app->request->siteUrl;
 		return $msg;
     }
 	
