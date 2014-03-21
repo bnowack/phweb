@@ -12,7 +12,6 @@ class RequestTracker {
 				'dateUts INTEGER',
 				'ip',
                 'host',
-                'network',
                 'city',
                 'region',
                 'country',
@@ -34,23 +33,26 @@ class RequestTracker {
     
     public function track() {
         $req = $this->app->request;
-        $ip = $req->arg('REMOTE_ADDR', 'server');
-        //$ip = '37.201.227.117';
+        $ip = getenv('HTTP_CLIENT_IP')?:
+            getenv('HTTP_X_FORWARDED_FOR')?:
+            getenv('HTTP_X_FORWARDED')?:
+            getenv('HTTP_FORWARDED_FOR')?:
+            getenv('HTTP_FORWARDED')?:
+            getenv('REMOTE_ADDR')
+        ;
         if ($req->method === 'GET' && !preg_match('/^(192|::)/', $ip)) {
-            $ipInfo = json_decode(file_get_contents("http://ipinfo.io/$ip/json"), true);
+            $ipInfo = json_decode(file_get_contents("http://freegeoip.net/json/$ip"), true);
             $data = array(
                 'dateUts' => DateTimeUtils::getUtcUts(),
                 'ip' => $ip,
-                'host' => !empty($ipInfo['hostname']) ? $ipInfo['hostname'] : gethostbyaddr($ip),
-                'network' => !empty($ipInfo['org']) ? $ipInfo['org'] : '',
+                'host' => gethostbyaddr($ip),
                 'city' => !empty($ipInfo['city']) ? $ipInfo['city'] : '',
-                'region' => !empty($ipInfo['region']) ? $ipInfo['region'] : '',
-                'country' => !empty($ipInfo['country']) ? $ipInfo['country'] : '',
+                'region' => !empty($ipInfo['region_name']) ? $ipInfo['region_name'] : '',
+                'country' => !empty($ipInfo['country_code']) ? $ipInfo['country_code'] : '',
                 'path' => $req->cleanPath,
                 'referrer' => $req->arg('HTTP_REFERER', 'server'),
                 'misc' => ''
             );
-            print_r($data);
             $db = $this->getDatabase();
             $db->insert('requests', $data);
         }
