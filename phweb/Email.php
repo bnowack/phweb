@@ -19,6 +19,7 @@ class Email {
     protected function completeMessage($msg) {
         $msg['smtp-host'] = $this->app->config('smtp/host');
         $msg['smtp-port'] = $this->app->config('smtp/port');
+        $msg['smtp-security'] = $this->app->config('smtp/security');
 		if (empty($msg['smtp-user'])) {
 			$msg['smtp-user'] = $this->app->config('smtp/user');
 		}
@@ -75,12 +76,18 @@ class Email {
     protected function setHeaders($mailer, $msg) {
 		$mailer->IsSMTP();
 		$mailer->Host = $msg['smtp-host'];
-		$mailer->Port = $msg['smtp-port'];
-		$mailer->SMTPAuth = true;
 		$mailer->Username = $msg['smtp-user'];
 		$mailer->Password = $msg['smtp-pass'];
-		//$mailer->SMTPSecure = 'tls';
-		//$mailer->SMTPDebug  = 1;
+		$mailer->SMTPAuth = true;
+        if (!empty($msg['smtp-port'])) {
+    		$mailer->Port = $msg['smtp-port'];
+        }
+        if (!empty($msg['smtp-security'])) {
+            $mailer->SMTPSecure = $msg['smtp-security']; // tls|ssl
+        }
+        if (!empty($msg['smtp-debug'])) {
+            $mailer->SMTPDebug = $msg['smtp-debug']; // 0|1|2
+        }
 
 		$mailer->From = $msg['from']['address'];
 		$mailer->FromName = $msg['from']['name'];
