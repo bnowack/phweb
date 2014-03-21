@@ -78,7 +78,7 @@ class RequestTracker {
             'ip' => $data['ip'],
             'expUts' => $data['dateUts'] - 1800 // 30 mins
         );
-        return $db->selectFirst($q, $parms) ? true : false;
+        return $this->db->selectFirst($q, $parms) ? true : false;
     }
     
 }
