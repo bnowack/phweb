@@ -5,6 +5,7 @@ namespace phweb;
 class RequestTracker {
     
     protected $app;
+    protected $db;
     
 	protected $schema = array(
 		'requests' => array(
@@ -29,6 +30,18 @@ class RequestTracker {
     
     public function __construct(Application $app) {
         $this->app = $app;
+        $this->db = $this->getDatabase();
+    }
+
+    public function getDatabase() {
+        $name = "requests-" . DateTimeUtils::format('Y-m', DateTimeUtils::getUtcUts());
+        $path = 'data/tracker/';
+        $db = new Database($name, $path);
+        if ($db->created) {
+            $db->exec('PRAGMA journal_mode=WAL;');
+			$db->updateSchema($this->schema);
+		}
+        return $db;
     }
     
     public function track() {
@@ -53,20 +66,19 @@ class RequestTracker {
                 'referrer' => $req->arg('HTTP_REFERER', 'server'),
                 'misc' => ''
             );
-            $db = $this->getDatabase();
-            $db->insert('requests', $data);
+            if (!$this->isDupe($data)) {
+                $this->db->insert('requests', $data);
+            }
         }
     }
     
-    public function getDatabase() {
-        $name = "requests-" . DateTimeUtils::format('Y-m', DateTimeUtils::getUtcUts());
-        $path = 'data/tracker/';
-        $db = new Database($name, $path);
-        if ($db->created) {
-            $db->exec('PRAGMA journal_mode=WAL;');
-			$db->updateSchema($this->schema);
-		}
-        return $db;
+    protected function isDupe($data) {
+        $q = 'SELECT 1 FROM requests WHERE ip = :ip AND dateUts > :expUts';
+        $parms = array(
+            'ip' => $data['ip'],
+            'expUts' => $data['dateUts'] - 1800 // 30 mins
+        );
+        return $db->selectFirst($q, $parms) ? true : false;
     }
     
 }
