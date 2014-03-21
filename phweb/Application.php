@@ -8,6 +8,7 @@ class Application {
     public $request;
     public $response;
     protected $routes;
+    protected $backgroundProcesses = array();
     
     public function __construct($config = array(), $request = null) {
         $this->activateAutoload();
@@ -68,7 +69,25 @@ class Application {
     
     public function run() {
         $this->processRoutes();
-        $this->response->send();
+        if (count($this->backgroundProcesses)) {
+            ignore_user_abort(true);
+            ob_start();
+            $this->response->send();
+            header("Content-Encoding: none");               // disable gzipping
+            header("Content-Length: " . ob_get_length());   // send length header
+            header("Connection: close");                    // close the connection
+            ob_end_flush();flush();                         // flush all buffers
+            foreach ($this->backgroundProcesses as $process) {
+                call_user_func_array($process['callback'], $process['params']);
+            }
+        }
+        else {
+            $this->response->send();
+        }
     }
     
+    public function addBackgroundProcess($callback, $params = array()) {
+        $this->backgroundProcesses[] = array('callback' => $callback, 'params' => $params);
+    }
+        
 }
