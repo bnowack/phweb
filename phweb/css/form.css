@@ -30,7 +30,7 @@ form .field > label {
     padding: 8px 2% 0 0;
 }
 
-form .field > .input {
+form .field > label + .input {
     width: 65%;
     float: left;
 }
@@ -45,6 +45,19 @@ form .field > .input textarea
     line-height: 18px;
     border: 2px solid #ccc;
     border-radius: 4px;
+}
+
+form .field > .input input[type="checkbox"] {
+    width: auto;
+    padding: 0;
+    border: none;
+    display: inline-block;
+    margin: 0 5px 0 0;
+    vertical-align: middle;
+}
+
+form .field > .input input[type="checkbox"] + label {
+    vertical-align: middle;
 }
 
 form .field > .input textarea {
