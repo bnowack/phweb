@@ -38,10 +38,12 @@ class Application {
     
     public function processRoute($paths) {
         foreach ($paths as $path => $handlerClass) {
-            if (!$this->isMatchingPath($path)) {
+            $pathMatch = $this->isMatchingPath($path);
+            if (!$pathMatch) {
                 continue;
             }
             $handler = new $handlerClass($this);
+            $handler->setPathMatch($pathMatch);
             if ($handler->hasSubMethod()) {
                 $handler->executeSubMethod();
             }
@@ -56,7 +58,8 @@ class Application {
     }
     
     protected function isMatchingPath($path) {
-        return preg_match('~^' . $path . '$~', '/' . $this->request->cleanPath);
+        $matches = false;
+        return preg_match('~^' . $path . '$~', '/' . $this->request->cleanPath, $matches) ? $matches : false;
     }
     
     public function config($path) {

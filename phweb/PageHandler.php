@@ -5,9 +5,14 @@ namespace phweb;
 class PageHandler {
     
     protected $app;
+    protected $pathMatch = array();
     
     public function __construct(Application $app) {
         $this->app = $app;
+    }
+    
+    public function setPathMatch($pathMatch) {
+        $this->pathMatch = $pathMatch;
     }
     
     public function hasSubMethod() {
