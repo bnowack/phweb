@@ -52,9 +52,23 @@
             });
         },
         
+        initTopLinks: function() {
+            $('#canvas > a.top').on('click', function(e) {
+                e.preventDefault();
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 1000);
+            });
+            // hide on large-enough screens
+            if ($(window).height() > $('body').height()) {
+                $('#canvas > a.top').hide();
+            }
+        },
+        
 		init: function() {
 			lib.activateEmails();
 			lib.activatePhones();
+            lib.initTopLinks();
             //phweb.initCanvasScaling();
             //phweb.setLinkTargets();
         }
