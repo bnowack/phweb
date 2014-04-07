@@ -19,10 +19,10 @@ A light-weight web framework for PHP
 * /config
     * application.ini
 * /src
-    * /phweb
     * /your-project
 * /templates
 * /vendor
+    * /phweb
 * .htaccess
 * composer.json
 * index.php
