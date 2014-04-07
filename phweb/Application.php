@@ -19,14 +19,14 @@ class Application {
     }
     
     public function activateAutoloadDirectories() {
-        $codeDirs = $this->config('autoloadDirectories') ?: array();
+        $codeDirs = $this->config('app/autoloadDirectories') ?: array();
         foreach ($codeDirs as $codeDir) {
             $this->activateAutoloadDirectory($codeDir);
         }
         return $this;
     }
     
-    public function activateAutoload($codeDir) {
+    public function activateAutoloadDirectory($codeDir) {
         spl_autoload_register(function($className) use ($codeDir) {
             $path = $codeDir . '/' . str_replace('\\', '/', $className) . '.php';
             if (file_exists($path)) {
