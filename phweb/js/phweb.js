@@ -2,34 +2,34 @@
 /* phweb.js */
 
 (function($) {
-	
-	var lib = window['phweb'] = {
+
+    var lib = window['phweb'] = {
 
         /**
          * Replaces <span class="email">info AT host DOT tld</span>
          */
         activateEmails: function() {
-			$('span.email').each(function() {
-				var addr = $(this).text().replace(' AT ', '@').replace(' DOT ', '.');
+            $('span.email').each(function() {
+                var addr = $(this).text().replace(' AT ', '@').replace(' DOT ', '.');
                 var label = addr;
                 if ($(this).attr('data-address')) {
                     addr = $(this).attr('data-address').replace(' AT ', '@').replace(' DOT ', '.');
                     label = $(this).text();
                 }
-				$(this).replaceWith('<a class="email" href="mailto:' + addr + '">' + label + '</a>');
-			});
-		},
-		
+                $(this).replaceWith('<a class="email" href="mailto:' + addr + '">' + label + '</a>');
+            });
+        },
+
         /**
          * Replaces <span class="phone">PLUS 49 12345 DASH 67890</span>
          */
-		activatePhones: function() {
-			$('span.phone').each(function() {
-				var nr = $(this).text().replace('PLUS ', '+').replace(/ DASH /g, '-');
-				$(this).replaceWith('<a class="phone" href="tel:' + nr + '">' + nr + '</a>');
-			});
-		},
-        
+        activatePhones: function() {
+            $('span.phone').each(function() {
+                var nr = $(this).text().replace('PLUS ', '+').replace(/ DASH /g, '-');
+                $(this).replaceWith('<a class="phone" href="tel:' + nr + '">' + nr + '</a>');
+            });
+        },
+
         /**
          * Makes sure the #footer does not hang
          */
@@ -70,16 +70,16 @@
             }
         },
         
-		init: function() {
-			lib.activateEmails();
-			lib.activatePhones();
+        init: function() {
+            lib.activateEmails();
+            lib.activatePhones();
             lib.initTopLinks();
             //phweb.initCanvasScaling();
             //phweb.setLinkTargets();
         }
-	
-	};
-	
-	$(lib.init);	
- 	
+
+    };
+
+    $(lib.init);
+
 })(jQuery);
