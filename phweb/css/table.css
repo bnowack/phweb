@@ -18,11 +18,11 @@ table thead th {
     border-bottom: 2px solid #ddd;
     margin: 0;
     text-align: left;
-    padding: 8px;
+    padding: 8px 16px;
 }
 
 table tbody td {
     text-align: left;
-    padding: 8px;
+    padding: 8px 16px;
     border-top: 1px solid #ddd;
 }
