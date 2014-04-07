@@ -11,7 +11,12 @@
         activateEmails: function() {
 			$('span.email').each(function() {
 				var addr = $(this).text().replace(' AT ', '@').replace(' DOT ', '.');
-				$(this).replaceWith('<a class="email" href="mailto:' + addr + '">' + addr + '</a>');
+                var label = addr;
+                if ($(this).attr('data-address')) {
+                    addr = $(this).attr('data-address').replace(' AT ', '@').replace(' DOT ', '.');
+                    label = $(this).text();
+                }
+				$(this).replaceWith('<a class="email" href="mailto:' + addr + '">' + label + '</a>');
 			});
 		},
 		
