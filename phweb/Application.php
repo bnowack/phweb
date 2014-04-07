@@ -11,16 +11,24 @@ class Application {
     protected $backgroundProcesses = array();
     
     public function __construct($config = array(), $request = null) {
-        $this->activateAutoload();
         $this->config = $config;
+        $this->activateAutoloadDirectories();
         $this->request = $request ?: new Request();
         $this->response = new Response($this);
         $this->routes = !empty($config['routes']) ? $config['routes'] : array();
     }
     
-    public function activateAutoload($sourceDir = 'src') {
-        spl_autoload_register(function($className) use ($sourceDir) {
-            $path = $sourceDir . '/' . str_replace('\\', '/', $className) . '.php';
+    public function activateAutoloadDirectories() {
+        $codeDirs = $this->config('autoloadDirectories') ?: array();
+        foreach ($codeDirs as $codeDir) {
+            $this->activateAutoloadDirectory($codeDir);
+        }
+        return $this;
+    }
+    
+    public function activateAutoload($codeDir) {
+        spl_autoload_register(function($className) use ($codeDir) {
+            $path = $codeDir . '/' . str_replace('\\', '/', $className) . '.php';
             if (file_exists($path)) {
                 include_once($path);
             }
