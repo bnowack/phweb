@@ -9,6 +9,7 @@ class Response {
     protected $templateVars = array();
     protected $stylesheets = array();
     protected $scripts = array();
+    protected $cookies = array();
     protected $complete = false;
     protected $format = 'text/html';
     protected $app;
@@ -80,6 +81,11 @@ class Response {
         return $this;
     }
     
+    public function addCookie($name, $value, $exp, $base = '/') {
+        $this->cookies[] = array($name, $value, $exp, $base);
+        return $this;
+    }
+    
     public function send() {
         $this->setStylesheetTemplateVar();
         $this->setScriptTemplateVar();
@@ -105,6 +111,10 @@ class Response {
         $protocol = filter_input(INPUT_SERVER, 'SERVER_PROTOCOL') ?: 'HTTP/1.0';
         $code = $this->statusCode;
         header("$protocol $code");
+        // cookies
+        foreach ($this->cookies as $cookie) {
+            setCookie($cookie[0], $cookie[1], $cookie[2], $cookie[3]);
+        }
     }
     
     protected function sendBody() {

@@ -9,9 +9,10 @@ A light-weight web framework for PHP
 * Response
 * Routing
 * Template
-* String/Date/FIle Utilities
+* String/Date/File Utilities
 * Email sending (requires PHPMailer)
 * SQLite storage
+* Sessions
 * Request Tracker
 
 ### Sample directory structure for web applications

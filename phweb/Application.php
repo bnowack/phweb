@@ -9,6 +9,7 @@ class Application {
     public $response;
     protected $routes;
     protected $backgroundProcesses = array();
+    protected $session;
     
     public function __construct($config = array(), $request = null) {
         $this->config = $config;
@@ -100,5 +101,11 @@ class Application {
     public function addBackgroundProcess($callback, $params = array()) {
         $this->backgroundProcesses[] = array('callback' => $callback, 'params' => $params);
     }
-        
+    
+    public function getSession() {
+        if (!$this->session) {
+            $this->session = new Session($this);
+        }
+        return $this->session;
+    }
 }
