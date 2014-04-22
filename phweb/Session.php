@@ -75,7 +75,10 @@ class Session {
 	}
     
 	public function save($force = false) {
-		if ($this->id && ($force || $this->changed)) {
+        if (!$this->id) {
+            $this->create();
+        }
+		if ($force || $this->changed) {
             $this->db->insertReplace(
                 'sessions', 
                 array(
@@ -95,7 +98,8 @@ class Session {
 		$this->id = StringUtils::rand(16, 's');
 		$this->setCookie()
             ->save()
-			->removeExpiredSessions();
+			->removeExpiredSessions()
+        ;
 		return $this;
 	}
 	
@@ -109,7 +113,7 @@ class Session {
 	protected function removeExpiredSessions() {
 		$expUts = DateTimeUtils::getUtcUts() - (3600 * 24 * $this->expiration);
 		$q = "DELETE FROM sessions WHERE (modifiedUts < :expUts)";
-		$this->db->executeStatement($q, array('expUts' => $expUts));
+		$this->db->exec($q, array('expUts' => $expUts));
 		return $this;
 	}
 	
