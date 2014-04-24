@@ -29,9 +29,13 @@ class Application {
     
     public function activateAutoloadDirectory($codeDir) {
         spl_autoload_register(function($className) use ($codeDir) {
-            $path = $codeDir . '/' . str_replace('\\', '/', $className) . '.php';
-            if (file_exists($path)) {
-                include_once($path);
+            $pathParts = preg_split('/\\\/', $className);
+            while ($pathParts) {
+                $path = $codeDir . '/' . implode('/', $pathParts) . '.php';
+                if (file_exists($path)) {
+                    include_once($path);
+                }
+                array_shift($pathParts);
             }
         }, true, true);
     }
