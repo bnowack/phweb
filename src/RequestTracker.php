@@ -33,8 +33,12 @@ class RequestTracker {
         $this->db = $this->getDatabase();
     }
 
-    public function getDatabase() {
-        $name = "requests-" . DateTimeUtils::format('Y-m', DateTimeUtils::getUtcUts());
+    public function getDatabase($monthOffset = 0) {
+        $nowXsd = DateTimeUtils::format('Y-m', DateTimeUtils::getUtcUts());
+        $offsetSuffix = " -$monthOffset month";
+        $date = date_create($nowXsd . $offsetSuffix);
+        $name = "requests-" . $date->format('Y-m');
+        //$name = "requests-" . DateTimeUtils::format('Y-m', DateTimeUtils::getUtcUts());
         $path = 'data/tracker/';
         $db = new Database($name, $path);
         if ($db->created) {
