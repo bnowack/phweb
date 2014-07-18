@@ -8,7 +8,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <base href="{base}" />
+        <base href="{base}"/>
 
         <title>{page-title}{page-title-glue}{meta/site-title}</title>
 
