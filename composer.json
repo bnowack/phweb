@@ -3,7 +3,6 @@
     
     "require": {
         "components/jquery": "1.11.1",
-        "h5bp/html5-boilerplate": "v4.3.0",
         "phpmailer/phpmailer": ">5.2.0"
     },
     
