@@ -1,5 +1,37 @@
 {
     "require": {
+        "components/jquery": "1.11.1",
+        "h5bp/html5-boilerplate": "v4.3.0",
         "phpmailer/phpmailer": ">5.2.0"
+    },
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "components/jquery",
+                "version": "1.11.1",
+                "source": {
+                    "url": "https://github.com/components/jquery.git",
+                    "type": "git",
+                    "reference": "1.11.1"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "h5bp/html5-boilerplate",
+                "version": "4.3.0",
+                "source": {
+                    "url": "https://github.com/h5bp/html5-boilerplate.git",
+                    "type": "git",
+                    "reference": "v4.3.0"
+                }
+            }
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+        }
     }
 }
