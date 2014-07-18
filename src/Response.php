@@ -95,7 +95,7 @@ class Response {
     
     protected function setStylesheetTemplateVar() {
         array_walk($this->stylesheets, function(&$value) {
-            $value = "            @import url($value);";
+            $value = "        <link rel=\"stylesheet\" href=\"$value\">";
         });
         $this->setTemplateVar('stylesheets', trim(implode(PHP_EOL, $this->stylesheets)));
     }
