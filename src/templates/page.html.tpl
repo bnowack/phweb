@@ -8,7 +8,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <base href="{base}" />
+        <base href="{base}"/>
 
         <title>{page-title}{page-title-glue}{meta/site-title}</title>
 
@@ -21,9 +21,9 @@
         <meta name="og:title" content="{page-title}"/>
         <meta name="og:image" content="{base}{meta/logo}"/>
         
-        <!-- Place favicon.ico (32x32) and apple-touch-icon.png (152x152) in the root directory -->
-        <link rel="shortcut icon" href="{base}favicon.ico"/>	
-
+        <link rel="shortcut icon" href="{base}favicon.ico" data-size="32x32"/>
+        <link rel="apple-touch-icon" href="{base}apple-touch-icon.png" data-size="152x152"/>
+        
         <link rel="stylesheet" href="{base}vendor/h5bp/html5-boilerplate/css/normalize.css">
         <link rel="stylesheet" href="{base}vendor/h5bp/html5-boilerplate/css/main.css">
         <link rel="stylesheet" href="{base}src/css/page.css">
