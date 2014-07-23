@@ -1,12 +1,18 @@
 {
     "name": "bnowack/phweb",
     
-    "require": {
-        "components/jquery": "1.11.1",
-        "phpmailer/phpmailer": ">5.2.0"
+    "suggest": {
+        "components/jquery": "phweb uses jQuery in its JavaScript code",
+        "phpmailer/phpmailer": "phweb needs phpmailer for sending emails",
+        "h5bp/html5-boilerplate": "phweb's default html template references H5BP assets",
+        "jrburke/requirejs": "phweb is going to use requireJS for its JavaScript libraries"
     },
     
     "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/bnowack/phweb.git"
+        },
         {
             "type": "package",
             "package": {
@@ -18,8 +24,47 @@
                     "reference": "1.11.1"
                 }
             }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "h5bp/html5-boilerplate",
+                "version": "v4.3.0",
+                "dist": {
+                    "url": "https://github.com/h5bp/html5-boilerplate/archive/v4.3.0.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "jrburke/requirejs",
+                "version": "2.1.14",
+                "source": {
+                    "url": "https://github.com/jrburke/requirejs.git",
+                    "type": "git",
+                    "reference": "2.1.14"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "requirejs/text",
+                "version": "2.0.12",
+                "source": {
+                    "url": "https://github.com/requirejs/text.git",
+                    "type": "git",
+                    "reference": "2.0.12"
+                }
+            }
         }
     ],
+    
+    "config": {
+        "component-dir": "vendor/components"
+    },
         
     "autoload": {
         "psr-0": {
