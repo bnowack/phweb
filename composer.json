@@ -2,7 +2,7 @@
     "name": "bnowack/phweb",
     
     "suggest": {
-        "components/jquery": "phweb uses jQuery in its JavaScript code",
+        "jquery/jquery": "phweb uses jQuery in its JavaScript code",
         "phpmailer/phpmailer": "phweb needs phpmailer for sending emails",
         "h5bp/html5-boilerplate": "phweb's default html template references H5BP assets",
         "jrburke/requirejs": "phweb is going to use requireJS for its JavaScript libraries"
@@ -16,12 +16,33 @@
         {
             "type": "package",
             "package": {
-                "name": "components/jquery",
+                "name": "bnowack/phweb",
+                "version": "2014-07-23",
+                "dist": {
+                    "url": "https://github.com/bnowack/phweb/archive/master.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "phpmailer/phpmailer",
+                "version": "v5.2.8",
+                "dist": {
+                    "url": "https://github.com/PHPMailer/PHPMailer/archive/v5.2.8.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "jquery/jquery",
                 "version": "1.11.1",
-                "source": {
-                    "url": "https://github.com/components/jquery.git",
-                    "type": "git",
-                    "reference": "1.11.1"
+                "dist": {
+                    "url": "https://github.com/jquery/jquery/archive/1.11.1.zip",
+                    "type": "zip"
                 }
             }
         },
@@ -33,30 +54,6 @@
                 "dist": {
                     "url": "https://github.com/h5bp/html5-boilerplate/archive/v4.3.0.zip",
                     "type": "zip"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "jrburke/requirejs",
-                "version": "2.1.14",
-                "source": {
-                    "url": "https://github.com/jrburke/requirejs.git",
-                    "type": "git",
-                    "reference": "2.1.14"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "requirejs/text",
-                "version": "2.0.12",
-                "source": {
-                    "url": "https://github.com/requirejs/text.git",
-                    "type": "git",
-                    "reference": "2.0.12"
                 }
             }
         }

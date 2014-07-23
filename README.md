@@ -20,10 +20,13 @@ A light-weight web framework for PHP
 * /config
     * application.ini
 * /src
-    * /your-project
-* /templates
+    * /css
+    * /js
+    * /templates
+    * /[class].php
 * /vendor
-    * /phweb
+    * /bnowack/phweb
+    * /phpmailer/phpmailer
 * .htaccess
 * composer.json
 * index.php
@@ -32,15 +35,13 @@ A light-weight web framework for PHP
     RewriteEngine On
     RewriteBase /
 
-    # Disable access to php files in vendor or src folders
-    RewriteCond %{REQUEST_URI} /(vendor|src).+\.php$
-    RewriteRule .* - [F,L]
+    # Hide Git files 
+    RedirectMatch 404 /\.git
 
-    # Redirect all other requests to the front controller.
+    # Redirect non-file/non-dir requests to the front controller.
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule .* index.php [L]
-
 
 
 ### Sample index.php
@@ -59,8 +60,11 @@ A light-weight web framework for PHP
 
     {
         "require": {
+            "bnowack/phweb": "@dev",
+            "h5bp/html5-boilerplate": "4.3.0",
+            "components/jquery": "1.11.1",
             "phpmailer/phpmailer": ">5.2.0"
-        }
+        },
     }
 
 
