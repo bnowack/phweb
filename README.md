@@ -58,14 +58,18 @@ A light-weight web framework for PHP
 
 ### Sample composer.json
 
-    {
-        "require": {
-            "bnowack/phweb": "@dev",
-            "h5bp/html5-boilerplate": "4.3.0",
-            "components/jquery": "1.11.1",
-            "phpmailer/phpmailer": ">5.2.0"
-        },
+    "require": {
+        "bnowack/phweb": "@dev",
+        "phpmailer/phpmailer": "v5.2.8",
+        "jquery/jquery": "1.11.1",
+        "h5bp/html5-boilerplate": "v4.3.0",
+        "jrburke/requirejs": "2.1.14",
+        "jashkenas/underscore": "1.6.0",
+        "jashkenas/backbone": "1.1.2",
+        "requirejs/text": "2.0.12"
     }
+
+    see composer.json for repository definitions
 
 
 ### Sample config/application.ini
