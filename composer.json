@@ -18,21 +18,9 @@
                     "reference": "1.11.1"
                 }
             }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "h5bp/html5-boilerplate",
-                "version": "4.3.0",
-                "source": {
-                    "url": "https://github.com/h5bp/html5-boilerplate.git",
-                    "type": "git",
-                    "reference": "v4.3.0"
-                }
-            }
         }
     ],
-    
+        
     "autoload": {
         "psr-0": {
         }
