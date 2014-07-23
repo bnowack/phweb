@@ -10,7 +10,7 @@ class Template {
     
 
     public function __construct($path, $vars = array()) {
-        $this->path = file_exists($path) ? $path : "templates/$path";
+        $this->path = file_exists($path) ? $path : "src/templates/$path";
         $this->vars = $vars;
         $this->result = '';
     }
