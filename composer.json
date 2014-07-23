@@ -17,7 +17,7 @@
             "type": "package",
             "package": {
                 "name": "bnowack/phweb",
-                "version": "2014-07-23",
+                "version": "dev-master-yyyymmdd",
                 "dist": {
                     "url": "https://github.com/bnowack/phweb/archive/master.zip",
                     "type": "zip"
@@ -59,10 +59,6 @@
         }
     ],
     
-    "config": {
-        "component-dir": "vendor/components"
-    },
-        
     "autoload": {
         "psr-0": {
         }
