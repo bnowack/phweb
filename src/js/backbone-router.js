@@ -51,15 +51,23 @@ define(function(require) {
          * 
          */
         enablePushStateLinks: function() {
-            var router = this;
+            var self = this;
             $(document).on('click', 'a', function(e) {
                 var base = $('head base').attr('href');
                 var href = $(this).attr('href');
                 var path = href.slice(base.length);
                 if (href.match(/^\//)) {// local
                     e.preventDefault();
-                    router.navigate(path, true);
+                    self.navigate(path, true);
                 }
+            });
+        },
+        
+        executeCommand: function(commandName, callback) {
+            var self = this;
+            require([commandName], function(Command) {
+                var command = new Command(self.app);
+                command.execute(callback); 
             });
         }
         
