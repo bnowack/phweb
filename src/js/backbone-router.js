@@ -8,20 +8,32 @@ define(function(require) {
     
     return Backbone.Router.extend({
         
-        // default routes
+        // properties
+        app: null,
         routes: {
-            "*path": "default"
+            "*path": "onUndefined"
         },
         
         /**
-         * Logs the path of undefined routes to th console.
+         * Default route, logs the path to the console.
          * 
-         * @param string path
+         * @param {string} path Current path fragment
          */
-        default: function(path) {
-            console.log("Undefined route: " + path);
+        onUndefined: function(path) {
+            console.log("No route defined for \"/" + path + "\"");
         },
         
+        /**
+         * Constructor, auto-called on instantiation
+         * 
+         * @param {object} app
+         */
+        constructor: function(app) {
+            this.app = app;
+            // call initialize() on sub-class instance
+            Backbone.Router.apply(this, arguments);            
+        },
+
         /**
          * Starts the route dispatching
          * 
