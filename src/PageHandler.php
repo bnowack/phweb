@@ -24,7 +24,7 @@ class PageHandler {
         $methodName = 'execute' . StringUtils::camelCase($this->app->request->arg('_method'));
         // default
         $this->app->response
-            ->setTemplate('raw.tpl')
+            ->setTemplate('vendor/bnowack/phweb/src/templates/raw.tpl')
             ->setStatusCode(501)
             ->setTemplateVar('content', 'Not Implemented')
         ;
@@ -35,6 +35,13 @@ class PageHandler {
     }   
 
     public function execute() {
-    }   
+        $this->app->response
+            ->setStatusCode(200)
+            ->setTemplate('vendor/bnowack/phweb/src/templates/page.html.tpl')
+            ->addScript('{base}vendor/jrburke/requirejs/require.js')
+            ->addScript('{base}config/require-config.js')
+            ->addScript('{base}src/js/app.js')
+        ;
+    }
 
 }
