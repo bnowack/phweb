@@ -108,7 +108,7 @@ class Response {
     }
     
     protected function sendHeaders() {
-        $protocol = filter_input(INPUT_SERVER, 'SERVER_PROTOCOL') ?: 'HTTP/1.0';
+        $protocol = $this->app->request->arg('SERVER_PROTOCOL', 'server') ?: 'HTTP/1.1';
         $code = $this->statusCode;
         header("$protocol $code");
         // cookies
