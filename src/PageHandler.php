@@ -40,6 +40,7 @@ class PageHandler {
             ->setTemplate('vendor/bnowack/phweb/src/templates/page.html.tpl')
             ->setTemplateVar('app-version', $this->app->getVersion())
             ->addScript('{base}vendor/jrburke/requirejs/require.js')
+            ->addScript('{base}vendor/bnowack/phweb/src/js/require-config.js')
             ->addScript('{base}config/require-config.js')
             ->addScript('{base}src/js/app.js')
         ;
