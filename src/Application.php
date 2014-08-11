@@ -114,8 +114,13 @@ class Application {
     }
     
     public function getModificationTime() {
-        $srcModified = FileUtils::getDirectoryModificationTime('src');
-        $vendorModified = filemtime('composer.lock');
-        return max($srcModified, $vendorModified);
+        return max(array(
+            filemtime('config'),
+            filemtime('src'),
+            filemtime('src/css'),
+            filemtime('src/js'),
+            filemtime('src/templates'),
+            filemtime('composer.lock')
+        ));
     }
 }

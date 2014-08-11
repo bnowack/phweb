@@ -50,10 +50,5 @@ class FileUtils {
         return !file_exists($filePath);
 	}
     
-    static public function getDirectoryModificationTime($path, $default = 0) {
-        $stat = stat($path);
-        return $stat ? $stat['mtime'] : $default;
-    }
-    
 }
 
