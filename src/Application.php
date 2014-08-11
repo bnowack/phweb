@@ -112,15 +112,20 @@ class Application {
         }
         return $this->session;
     }
-    
-    public function getModificationTime() {
-        return max(array(
-            filemtime('config'),
-            filemtime('src'),
-            filemtime('src/css'),
-            filemtime('src/js'),
-            filemtime('src/templates'),
-            filemtime('composer.lock')
-        ));
+        
+    public function getVersion() {
+        // dev servers always return current time to avoid caching
+        if (in_array($this->request->arg('HTTP_HOST', 'server'), $this->config('app/devHosts'))) {
+            return time();
+        }
+        // use modification time of ".git/HEAD" on production servers, if available
+        else if (file_exists('.git/HEAD')) {
+            return filemtime('.git/HEAD');
+        }
+        // fall back to manually specified version
+        else {
+            return $this->config('app/version');
+        }
     }
+    
 }

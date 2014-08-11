@@ -75,9 +75,10 @@ A light-weight web framework for PHP
 ### Sample config/application.ini
 
     [app]
-    project-id = my-project
+    version = yyyy-mm-dd
     autoloadDirectories[] = "vendor/phweb"
     autoloadDirectories[] = "src"
+    devHosts[] = "localhost"
 
     [meta]
     site-title = My Title
