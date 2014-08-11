@@ -38,7 +38,7 @@ class PageHandler {
         $this->app->response
             ->setStatusCode(200)
             ->setTemplate('vendor/bnowack/phweb/src/templates/page.html.tpl')
-            ->setTemplateVar('app-version-uts', filemtime('.git/logs/HEAD'))
+            ->setTemplateVar('app-last-modified', $this->app->getModificationTime())
             ->addScript('{base}vendor/jrburke/requirejs/require.js')
             ->addScript('{base}config/require-config.js')
             ->addScript('{base}src/js/app.js')

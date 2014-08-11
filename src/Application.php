@@ -112,4 +112,10 @@ class Application {
         }
         return $this->session;
     }
+    
+    public function getModificationTime() {
+        $srcModified = FileUtils::getDirectoryModificationTime('src');
+        $vendorModified = filemtime('composer.lock');
+        return max($srcModified, $vendorModified);
+    }
 }

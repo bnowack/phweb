@@ -33,7 +33,7 @@
         <script type="text/javascript" src="{base}vendor/h5bp/html5-boilerplate/js/vendor/modernizr-2.8.0.min.js"></script>
     </head>
 
-    <body data-base="{base}" data-path="{resource-path}" data-version="{app-version-uts}">
+    <body data-base="{base}" data-path="{resource-path}" data-version="{app-last-modified}">
         
         {layout}
         
