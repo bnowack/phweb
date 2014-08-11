@@ -10,6 +10,7 @@ class Application {
     protected $routes;
     protected $backgroundProcesses = array();
     protected $session;
+    protected $version;
     
     public function __construct($config = array(), $request = null) {
         $this->config = $config;
@@ -114,18 +115,21 @@ class Application {
     }
         
     public function getVersion() {
-        // dev servers always return current time to avoid caching
-        if (in_array($this->request->arg('HTTP_HOST', 'server'), $this->config('app/devHosts'))) {
-            return time();
+        if (!$this->version) {
+            // dev servers always return current time to avoid caching
+            if (in_array($this->request->arg('HTTP_HOST', 'server'), $this->config('app/devHosts'))) {
+                $this->version = time();
+            }
+            // use modification time of ".git/HEAD" on production servers, if available
+            else if (file_exists('.git/HEAD')) {
+                $this->version = filemtime('.git/HEAD');
+            }
+            // fall back to manually specified version
+            else {
+                $this->version = $this->config('app/version');
+            }
         }
-        // use modification time of ".git/HEAD" on production servers, if available
-        else if (file_exists('.git/HEAD')) {
-            return filemtime('.git/HEAD');
-        }
-        // fall back to manually specified version
-        else {
-            return $this->config('app/version');
-        }
+        return $this->version;
     }
     
 }

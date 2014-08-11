@@ -94,15 +94,17 @@ class Response {
     }
     
     protected function setStylesheetTemplateVar() {
-        array_walk($this->stylesheets, function(&$value) {
-            $value = "        <link rel=\"stylesheet\" href=\"$value\">";
+        $version = $this->app->getVersion();
+        array_walk($this->stylesheets, function(&$value) use ($version) {
+            $value = "        <link rel=\"stylesheet\" href=\"$value?v=$version\">";
         });
         $this->setTemplateVar('stylesheets', trim(implode(PHP_EOL, $this->stylesheets)));
     }
     
     protected function setScriptTemplateVar() {
-        array_walk($this->scripts, function(&$value) {
-            $value = "        <script type=\"text/javascript\" src=\"$value\"></script>";
+        $version = $this->app->getVersion();
+        array_walk($this->scripts, function(&$value) use ($version) {
+            $value = "        <script type=\"text/javascript\" src=\"$value?v=$version\"></script>";
         });
         $this->setTemplateVar('scripts', trim(implode(PHP_EOL, $this->scripts)));
     }
@@ -128,4 +130,3 @@ class Response {
     }
     
 }
-
