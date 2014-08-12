@@ -1,10 +1,13 @@
 
 /* phweb.js */
 
-(function($) {
+define(function (require) {
+    "use strict";
 
-    var lib = window['phweb'] = {
-
+    $ = require('jquery');
+    
+    return {
+        
         /**
          * Replaces <span class="email">info AT host DOT tld</span>
          */
@@ -18,8 +21,9 @@
                 }
                 $(this).replaceWith('<a class="email" href="mailto:' + addr + '">' + label + '</a>');
             });
+            return this;
         },
-
+        
         /**
          * Replaces <span class="phone">PLUS 49 12345 DASH 67890</span>
          */
@@ -28,22 +32,25 @@
                 var nr = $(this).text().replace('PLUS ', '+').replace(/ DASH /g, '-');
                 $(this).replaceWith('<a class="phone" href="tel:' + nr + '">' + nr + '</a>');
             });
+            return this;
         },
 
         /**
          * Makes sure the #footer does not hang
          */
         initCanvasScaling: function() {
+            var timeout = null;
             $(window)
                 .on('resize', function() {
-                    try { window.clearTimeout(lib.canvasSizeTO); } catch(e) {};
-                    lib.canvasSizeTO = window.setTimeout(function() {
+                    try { window.clearTimeout(timeout); } catch(e) {};
+                    timeout = window.setTimeout(function() {
                         var diff = $(window).height() - $('body').height() + parseInt($('#footer').css('margin-top'));
                         $('#footer').animate({'margin-top': Math.max(0, diff)}, 100);
                     }, 250);
                 })
                 .trigger('resize')
             ;
+            return this;
         },
         
         /**
@@ -55,8 +62,16 @@
                     $(this).attr('target', '_ext');
                 }
             });
+            return this;
         },
-        
+
+        /**
+         * Lets links pointing back to top of page trigger smooth scrolling.
+         * 
+         * Hides links on non-scrollable pages.
+         * 
+         * @returns {undefined}
+         */
         initTopLinks: function() {
             $('#canvas > a.top').on('click', function(e) {
                 e.preventDefault();
@@ -68,18 +83,10 @@
             if ($(window).height() > $('body').height()) {
                 $('#canvas > a.top').hide();
             }
-        },
-        
-        init: function() {
-            lib.activateEmails();
-            lib.activatePhones();
-            lib.initTopLinks();
-            //phweb.initCanvasScaling();
-            //phweb.setLinkTargets();
+            return this;
         }
-
+        
     };
+    
+});
 
-    $(lib.init);
-
-})(jQuery);
