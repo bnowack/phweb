@@ -76,12 +76,12 @@ class Application {
         return preg_match('~^' . $path . '$~', '/' . $this->request->cleanPath, $matches) ? $matches : false;
     }
     
-    public function config($path) {
+    public function config($path, $default = null) {
         list($section, $name) = explode('/', $path);
         if (!empty($this->config[$section]) && !empty($this->config[$section][$name])) {
             return $this->config[$section][$name];
         }
-        return null;
+        return $default;
     }
     
     public function run() {
@@ -117,7 +117,7 @@ class Application {
     public function getVersion() {
         if (!$this->version) {
             // dev servers always return current time to avoid caching
-            if (in_array($this->request->arg('HTTP_HOST', 'server'), $this->config('app/devHosts'))) {
+            if (in_array($this->request->arg('HTTP_HOST', 'server'), $this->config('app/devHosts', array()))) {
                 $this->version = time();
             }
             // use modification time of ".git/HEAD" on production servers, if available
