@@ -127,5 +127,13 @@ class Response {
         return $template->result;
     }
     
+    public function setComplete($value) {
+        $this->complete = $value;
+    }
+    
+    public function isComplete() {
+        return $this->complete;
+    }
+    
 }
 
