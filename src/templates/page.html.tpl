@@ -26,8 +26,7 @@
         
         <link rel="stylesheet" href="{base}vendor/h5bp/html5-boilerplate/css/normalize.css?v={app-version}">
         <link rel="stylesheet" href="{base}vendor/h5bp/html5-boilerplate/css/main.css?v={app-version}">
-        <link rel="stylesheet" href="{base}src/css/page.css?v={app-version}">
-        <link rel="stylesheet" href="{base}src/css/responsive.css?v={app-version}">
+        <link rel="stylesheet" href="{base}src/css/layout.css?v={app-version}">
         {stylesheets}
 		
         <script type="text/javascript" src="{base}vendor/h5bp/html5-boilerplate/js/vendor/modernizr-2.8.0.min.js"></script>
