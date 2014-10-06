@@ -36,17 +36,27 @@ define(function (require) {
         },
 
         /**
-         * Makes sure the #footer does not hang
+         * Makes sure the #footer does not hang in the middle of the page when there is little content
          */
         initCanvasScaling: function() {
             var timeout = null;
+            var targetMargin = function() {
+                return Math.max(0, $(window).height() - $('body').height() + parseInt($('#footer').css('margin-top')));
+            };
+            var setMargin = function() {
+                var targetValue = targetMargin();
+                $('#footer').css({
+                    'margin-top': targetValue,
+                    'visibility': 'visible'
+                });
+                if (targetMargin() !== targetValue) {// side-effects changed the page layout
+                    setMargin();
+                }
+            };
             $(window)
                 .on('resize', function() {
                     try { window.clearTimeout(timeout); } catch(e) {};
-                    timeout = window.setTimeout(function() {
-                        var diff = $(window).height() - $('body').height() + parseInt($('#footer').css('margin-top'));
-                        $('#footer').animate({'margin-top': Math.max(0, diff)}, 100);
-                    }, 250);
+                    timeout = window.setTimeout(setMargin, 150);
                 })
                 .trigger('resize')
             ;
