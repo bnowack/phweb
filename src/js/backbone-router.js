@@ -56,7 +56,7 @@ define(function(require) {
                 var base = $('head base').attr('href');
                 var href = $(this).attr('href');
                 var path = href.slice(base.length);
-                if (href.match(/^\//)) {// local
+                if (path && href.match(/^\//)) {// local path
                     e.preventDefault();
                     self.navigate(path, true);
                 }
