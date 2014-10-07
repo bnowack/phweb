@@ -52,6 +52,9 @@ class Application {
     
     public function processRoute($paths) {
         foreach ($paths as $path => $handlerClass) {
+            if ($this->response->isComplete()) {
+                break;
+            }
             $pathMatch = $this->isMatchingPath($path);
             if (!$pathMatch) {
                 continue;

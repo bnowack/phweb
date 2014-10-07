@@ -10,6 +10,7 @@ class Response {
     protected $stylesheets = array();
     protected $scripts = array();
     protected $cookies = array();
+    protected $headers = array();
     protected $complete = false;
     protected $format = 'text/html';
     protected $app;
@@ -86,6 +87,11 @@ class Response {
         return $this;
     }
     
+    public function addHeader($name, $value) {
+        $this->headers[] = array($name, $value);
+        return $this;
+    }
+    
     public function send() {
         $this->setStylesheetTemplateVar();
         $this->setScriptTemplateVar();
@@ -117,6 +123,10 @@ class Response {
         foreach ($this->cookies as $cookie) {
             setCookie($cookie[0], $cookie[1], $cookie[2], $cookie[3]);
         }
+        // headers
+        foreach ($this->headers as $header) {
+            header("$header[0]: $header[1]");
+        }
     }
     
     protected function sendBody() {
@@ -127,6 +137,14 @@ class Response {
         $template = new Template($this->templatePath, $this->templateVars);
         $template->execute();
         return $template->result;
+    }
+    
+    public function setComplete($value) {
+        $this->complete = $value;
+    }
+    
+    public function isComplete() {
+        return $this->complete;
     }
     
 }
