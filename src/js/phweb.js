@@ -30,7 +30,12 @@ define(function (require) {
         activatePhones: function() {
             $('span.phone').each(function() {
                 var nr = $(this).text().replace('PLUS ', '+').replace(/ DASH /g, '-');
-                $(this).replaceWith('<a class="phone" href="tel:' + nr + '">' + nr + '</a>');
+                var hrefNr = nr
+                    .replace('(0)', '')
+                    .replace(/ /g, '')
+                    .replace(/-/g, '')
+                ;
+                $(this).replaceWith('<a class="phone" href="tel:' + hrefNr + '">' + nr + '</a>');
             });
             return this;
         },
