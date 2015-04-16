@@ -9,6 +9,7 @@ class Response {
     protected $templateVars = array();
     protected $stylesheets = array();
     protected $scripts = array();
+    protected $headers = array();
     protected $cookies = array();
     protected $complete = false;
     protected $format = 'text/html';
@@ -86,6 +87,11 @@ class Response {
         return $this;
     }
     
+    public function addHeader($name, $value) {
+        $this->headers[] = array($name, $value);
+        return $this;
+    }
+    
     public function send() {
         $this->setStylesheetTemplateVar();
         $this->setScriptTemplateVar();
@@ -114,6 +120,10 @@ class Response {
         // cookies
         foreach ($this->cookies as $cookie) {
             setCookie($cookie[0], $cookie[1], $cookie[2], $cookie[3]);
+        }
+        // headers
+        foreach ($this->headers as $header) {
+            header("$header[0]: $header[1]");
         }
     }
     
