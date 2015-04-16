@@ -116,3 +116,4 @@ class Application {
         return $this->session;
     }
 }
+
