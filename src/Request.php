@@ -11,6 +11,7 @@ class Request {
     public $extension;
     public $pathParts;
     public $method;
+    public $siteUrl;
     public $arguments;
     
     public function __construct() {
