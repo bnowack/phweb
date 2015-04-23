@@ -51,7 +51,7 @@ class Application {
     }
     
     public function processRoute($paths) {
-        foreach ($paths as $path => $handlerClass) {
+        foreach ($paths as $path => $handlerClasses) {
             if ($this->response->isComplete()) {
                 break;
             }
@@ -59,14 +59,20 @@ class Application {
             if (!$pathMatch) {
                 continue;
             }
-            $handler = new $handlerClass($this);
-            $handler->setPathMatch($pathMatch);
-            if ($handler->hasSubMethod()) {
-                $handler->executeSubMethod();
+            foreach (explode(' ', $handlerClasses) as $handlerClass) {
+                $this->executeRouteHandler($handlerClass, $pathMatch);
             }
-            else {
-                $handler->execute();
-            }
+        }
+    }
+    
+    protected function executeRouteHandler($className, $pathMatch) {
+        $handler = new $className($this);
+        $handler->setPathMatch($pathMatch);
+        if ($handler->hasSubMethod()) {
+            $handler->executeSubMethod();
+        }
+        else {
+            $handler->execute();
         }
     }
     
@@ -134,5 +140,5 @@ class Application {
         }
         return $this->version;
     }
-    
+
 }
