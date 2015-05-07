@@ -48,7 +48,7 @@ A light-weight web framework for PHP
     <?php
 
     require_once('vendor/autoload.php');
-    require_once('vendor/phweb/src/Application.php');
+    require_once('vendor/bnowack/phweb/src/Application.php');
 
     $config = parse_ini_file('config/application.ini', true, INI_SCANNER_RAW);
     $app = new \phweb\Application($config);
@@ -68,7 +68,7 @@ A light-weight web framework for PHP
 
     [app]
     project-id = my-project
-    autoloadDirectories[] = "vendor/phweb"
+    autoloadDirectories[] = "vendor/bnowack/phweb"
     autoloadDirectories[] = "src"
 
     [meta]
