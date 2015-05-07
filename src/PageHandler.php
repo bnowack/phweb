@@ -21,6 +21,9 @@ class PageHandler {
     }
     
     public function executeSubMethod() {
+        if ($this->app->response->isComplete()) {
+            return;
+        }
         $methodName = 'execute' . StringUtils::camelCase($this->app->request->arg('_method'));
         // default
         $this->app->response
