@@ -123,9 +123,9 @@ class Session {
 		return $this;
 	}
 	
-	protected function removeCookie() {
+	public function removeCookie() {
 		$exp = time() - 1000; // past
-		$this->app->response->setCookie($this->cookieName, $this->id, $exp, $this->cookieBase);
+		$this->app->response->addCookie($this->cookieName, $this->id, $exp, $this->cookieBase);
 		return $this;
 	}
 	
