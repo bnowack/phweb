@@ -4,7 +4,7 @@ namespace phweb;
 
 class Response {
     
-    protected $statusCode = 404;
+    public $statusCode = 404;
     protected $templatePath = 'page.html.tpl';
     protected $templateVars = array();
     protected $stylesheets = array();

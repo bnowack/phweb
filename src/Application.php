@@ -108,6 +108,12 @@ class Application {
             }
         }
         else {
+            if (($this->response->statusCode === 404) && !empty($this->config['app']['notFoundHandler'])) {
+                $className = $this->config['app']['notFoundHandler'];
+                $handler = new $className($this);
+                $handler->execute();
+            }
+
             $this->response->send();
         }
     }
