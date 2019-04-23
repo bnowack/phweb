@@ -16,7 +16,7 @@ class Request {
     public function __construct() {
         $this->buildArguments();
         $this->host = $this->arg('Host', 'headers') ?: $this->arg('SERVER_NAME', 'server');
-        $this->base = preg_replace('/index\.php$/', '', $this->arg('SCRIPT_NAME', 'server'));
+        $this->base = defined('APP_BASE') ? APP_BASE : preg_replace('/index\.php$/', '', $this->arg('SCRIPT_NAME', 'server'));
         $this->path = preg_replace('/^' . preg_quote($this->base, '/') . '/', '', $this->arg('REQUEST_URI', 'server'));
         $this->cleanPath = preg_replace('/\?.*$/', '', $this->path);
         $this->resourcePath = preg_replace('/\..*$/', '', $this->cleanPath);
