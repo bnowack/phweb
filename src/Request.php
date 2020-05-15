@@ -27,10 +27,9 @@ class Request {
     }
     
     protected function buildArguments() {
-        $mq = get_magic_quotes_gpc();
-        $this->arguments['get'] = $mq ? StringUtils::removeMagicQuotes($GLOBALS['_GET']) : $GLOBALS['_GET'];
-        $this->arguments['post'] = $mq ? StringUtils::removeMagicQuotes($GLOBALS['_POST']) : $GLOBALS['_POST'];
-        $this->arguments['cookie'] = $mq ? StringUtils::removeMagicQuotes($GLOBALS['_COOKIE']) : $GLOBALS['_COOKIE'];
+        $this->arguments['get'] = $GLOBALS['_GET'];
+        $this->arguments['post'] = $GLOBALS['_POST'];
+        $this->arguments['cookie'] = $GLOBALS['_COOKIE'];
         $this->arguments['files'] = $GLOBALS['_FILES'];
         $this->arguments['server'] = empty($_SERVER) ? array() : $_SERVER;
         $this->arguments['headers'] = $this->buildHeaderArguments();
@@ -72,9 +71,6 @@ class Request {
         if ($fp) {
             $raw = stream_get_contents($fp);
             parse_str($raw, $result);
-            if (get_magic_quotes_gpc()) {
-                $result = StringUtils::removeMagicQuotes($result);
-            }
             $result['RAW-DATA'] = $raw;
             fclose($fp);
         }
